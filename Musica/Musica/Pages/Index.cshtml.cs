@@ -16,7 +16,8 @@ namespace Musica.Pages
         {
             _logger = logger;
             var x = new ApiCaller();
-            string result = x.GetArtistCodeAsync("Lana del Rey").Result;
+            string result = x.GetArtistCodeAsync("Lana Del Rey").Result;
+            x.GetArtistDataAsync("16775");
         }
 
         public void OnGet()

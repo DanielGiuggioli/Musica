@@ -12,83 +12,94 @@ namespace Musica
 {
     public class ApiCaller
     {
-		public void GetArtistData(string artist)
+        static string key = "f94e2c864dmsh7e15a29f5dceed5p1e7333jsnd8ce5bcbe570";
+        public void GetArtistData(string artist)
         {
-			//Task<int> code = GetArtistCodeAsync(artist);
+            //Task<int> code = GetArtistCodeAsync(artist);
         }
 
-		public async Task<string> GetArtistCodeAsync(string artist)
+        public async Task<string> GetArtistCodeAsync(string artist)
         {
-			string encArtist = HttpUtility.UrlEncode(artist);
-			var client = new HttpClient();
-			var request = new HttpRequestMessage
-			{
-				Method = HttpMethod.Get,
-				RequestUri = new Uri("https://genius.p.rapidapi.com/search?q="+encArtist),
-				Headers =
-	{
-		{ "X-RapidAPI-Host", "genius.p.rapidapi.com" },
-		{ "X-RapidAPI-Key", "SIGN-UP-FOR-KEY" },
-	},
-			};
-			using (var response = await client.SendAsync(request))
-			{
-				response.EnsureSuccessStatusCode();
-				var body = await response.Content.ReadAsStringAsync();
-				return body;
-			}
-		}
+            string encArtist = default;
+            var arr = artist.Split(' ');
+            for (int x = 0; x < arr.Length - 1; x++)
+            {
+                arr[x] = arr[x] + "%20";
+            }
+            foreach(var y in arr)
+            {
+                encArtist = encArtist + y;
+            }
+            //string encArtist = HttpUtility.UrlEncode(artist);
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://genius.p.rapidapi.com/search?q="+encArtist),
+                Headers =
+    {
+        { "X-RapidAPI-Host", "genius.p.rapidapi.com" },
+        { "X-RapidAPI-Key", "f94e2c864dmsh7e15a29f5dceed5p1e7333jsnd8ce5bcbe570" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                return body;
+            }
+        }
         public async Task GetArtistDataAsync(string code)
         {
-			var client = new HttpClient();
-			var request = new HttpRequestMessage
-			{
-				Method = HttpMethod.Get,
-				RequestUri = new Uri("https://genius.p.rapidapi.com/artists/"+code),
-				Headers =
-	{
-		{ "X-RapidAPI-Host", "genius.p.rapidapi.com" },
-		{ "X-RapidAPI-Key", "SIGN-UP-FOR-KEY" },
-	},
-			};
-			using (var response = await client.SendAsync(request))
-			{
-				response.EnsureSuccessStatusCode();
-				var body = await response.Content.ReadAsStringAsync();
-			}
-		}
-		public void Call(string artist)
-		{
-			string encArtist = HttpUtility.UrlEncode(artist);
-			var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://genius.p.rapidapi.com/search?q=" + encArtist);
-			//httpWebRequest.ContentType = "application/json";
-			httpWebRequest.Method = "GET";
-			httpWebRequest.Headers.Add("X-RapidAPI-Host", "genius.p.rapidapi.com");
-			httpWebRequest.Headers.Add("X-RapidAPI-Key", "SIGN-UP-FOR-KEY");
-			try
-			{
-				using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-				{
-					string json = JsonConvert.SerializeObject(streamWriter);
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://genius.p.rapidapi.com/artists/" + code),
+                Headers =
+    {
+        { "X-RapidAPI-Host", "genius.p.rapidapi.com" },
+        { "X-RapidAPI-Key", "f94e2c864dmsh7e15a29f5dceed5p1e7333jsnd8ce5bcbe570" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+            }
+        }
+        public void Call(string artist)
+        {
+            string encArtist = HttpUtility.UrlEncode(artist);
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://genius.p.rapidapi.com/search?q=" + encArtist);
+            //httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "GET";
+            httpWebRequest.Headers.Add("X-RapidAPI-Host", "genius.p.rapidapi.com");
+            httpWebRequest.Headers.Add("X-RapidAPI-Key", "SIGN-UP-FOR-KEY");
+            try
+            {
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    string json = JsonConvert.SerializeObject(streamWriter);
 
-					//streamWriter.Write(nomeProdotto);
-				}
+                    //streamWriter.Write(nomeProdotto);
+                }
 
-				//var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();
-				//List<Product> response = new List<Product>();
-				//string result = "";
-				////CreaTelecameraResponse response;
-				//using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-				//{
-				//	result = streamReader.ReadToEnd();
-				//	//response = JsonConvert.DeserializeObject<List<Product>>(result);
-				//}
-				//return result;
-			}
-			catch (Exception ex)
-			{
-				//return null;
-			}
-		}
-	}
+                //var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();
+                //List<Product> response = new List<Product>();
+                //string result = "";
+                ////CreaTelecameraResponse response;
+                //using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                //{
+                //	result = streamReader.ReadToEnd();
+                //	//response = JsonConvert.DeserializeObject<List<Product>>(result);
+                //}
+                //return result;
+            }
+            catch (Exception ex)
+            {
+                //return null;
+            }
+        }
+    }
 }
