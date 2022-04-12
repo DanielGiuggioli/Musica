@@ -1,0 +1,35 @@
+﻿@page
+@model Musica.ArtistsModel
+@{
+}
+<form method="post">
+    <div class="row">
+        <div class="col">
+            <input type="search" class="form-control" id="inputPassword2" placeholder="Search an artist" asp-for="SearchedArtist">
+        </div>
+        <div class="col">
+            <input type="submit" class="btn btn-primary mb-3" value="Search">
+        </div>
+    </div>
+    @if (Model.Artist != null)
+    {
+        <div class="text-center rounded border shadow">
+            <h2>@Model.SearchedArtist</h2>
+            <div>
+                <img src="@Model.Artist.image_url" />
+            </div>
+            
+            <a href="@Model.Artist.url" target="_blank">Genius Link</a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col rounded border shadow mt-1 mr-1">
+                    <h4>Famous Tracks</h4>
+                </div>
+                <div class="col rounded border shadow mt-1 ml-1">
+                    <h4>Discography</h4>
+                </div>
+            </div>
+        </div>
+    }
+</form>

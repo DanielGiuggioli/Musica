@@ -36,3 +36,6 @@ C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcore
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.genruntimeconfig.cache
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csproj.CopyComplete
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\Artists.cshtml.g.cs
+C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\Favourites.cshtml.g.cs
+C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\Songs.cshtml.g.cs

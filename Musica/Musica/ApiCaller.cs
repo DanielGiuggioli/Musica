@@ -13,29 +13,36 @@ namespace Musica
     public class ApiCaller
     {
         static string key = "f94e2c864dmsh7e15a29f5dceed5p1e7333jsnd8ce5bcbe570";
-        public void GetArtistData(string artist)
+        static string searchUrl = "https://genius.p.rapidapi.com/search?q=";
+        static string artistUrl = "https://genius.p.rapidapi.com/artists/";
+
+        public Artist GetArtistData(string a)
         {
-            //Task<int> code = GetArtistCodeAsync(artist);
+            int code = GetArtistCodeAsync(a).Result;
+            var artist = GetArtistDataAsync(code.ToString()).Result;
+            return artist;
         }
 
-        public async Task<string> GetArtistCodeAsync(string artist)
+        public async Task<int> GetArtistCodeAsync(string artist)
         {
-            string encArtist = default;
-            var arr = artist.Split(' ');
-            for (int x = 0; x < arr.Length - 1; x++)
-            {
-                arr[x] = arr[x] + "%20";
-            }
-            foreach(var y in arr)
-            {
-                encArtist = encArtist + y;
-            }
-            //string encArtist = HttpUtility.UrlEncode(artist);
+            string encArtist = HttpUtility.UrlEncode(artist);
+            string body = GetBodyAsync(searchUrl + encArtist).Result;
+            CodeResult res = JsonConvert.DeserializeObject<CodeResult>(body);
+            return res.response.hits[0].result.primary_artist.id;
+        }
+        public async Task<Artist> GetArtistDataAsync(string code)
+        {
+            string body = GetBodyAsync(artistUrl + code).Result;
+            ArtistResult res = JsonConvert.DeserializeObject<ArtistResult>(body);
+            return res.response.artist;
+        }
+        public async Task<string> GetBodyAsync(string url)
+        {
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://genius.p.rapidapi.com/search?q="+encArtist),
+                RequestUri = new Uri(url),
                 Headers =
     {
         { "X-RapidAPI-Host", "genius.p.rapidapi.com" },
@@ -49,57 +56,6 @@ namespace Musica
                 return body;
             }
         }
-        public async Task GetArtistDataAsync(string code)
-        {
-            var client = new HttpClient();
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://genius.p.rapidapi.com/artists/" + code),
-                Headers =
-    {
-        { "X-RapidAPI-Host", "genius.p.rapidapi.com" },
-        { "X-RapidAPI-Key", "f94e2c864dmsh7e15a29f5dceed5p1e7333jsnd8ce5bcbe570" },
-    },
-            };
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-            }
-        }
-        public void Call(string artist)
-        {
-            string encArtist = HttpUtility.UrlEncode(artist);
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("https://genius.p.rapidapi.com/search?q=" + encArtist);
-            //httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "GET";
-            httpWebRequest.Headers.Add("X-RapidAPI-Host", "genius.p.rapidapi.com");
-            httpWebRequest.Headers.Add("X-RapidAPI-Key", "SIGN-UP-FOR-KEY");
-            try
-            {
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-                {
-                    string json = JsonConvert.SerializeObject(streamWriter);
 
-                    //streamWriter.Write(nomeProdotto);
-                }
-
-                //var httpResponse = (HttpWebResponse)await httpWebRequest.GetResponseAsync();
-                //List<Product> response = new List<Product>();
-                //string result = "";
-                ////CreaTelecameraResponse response;
-                //using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-                //{
-                //	result = streamReader.ReadToEnd();
-                //	//response = JsonConvert.DeserializeObject<List<Product>>(result);
-                //}
-                //return result;
-            }
-            catch (Exception ex)
-            {
-                //return null;
-            }
-        }
     }
 }
