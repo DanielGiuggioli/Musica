@@ -18,6 +18,7 @@ namespace Musica
     public class Artist
     {
         public int id { get; set; }
+        public string name { get; set; }
         public string image_url { get; set; }
         public string url { get; set; }
     }

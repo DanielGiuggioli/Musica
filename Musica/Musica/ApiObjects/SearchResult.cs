@@ -5,28 +5,30 @@ using System.Threading.Tasks;
 
 namespace Musica
 {
-    public class CodeResult
+    public class SearchResult
     {
-        public ResponseCode response { get; set; }
+        public SearchResponse response { get; set; }
     }
 
-    public class ResponseCode
+    public class SearchResponse
     {
         public Hit[] hits { get; set; }
     }
 
     public class Hit
     {
-        public ResultCode result { get; set; }
+        public Result result { get; set; }
     }
 
-    public class ResultCode
+    public class Result
     {
+        public int id { get; set; }
         public PrimaryArtist primary_artist { get; set; }
     }
 
     public class PrimaryArtist
     {
         public int id { get; set; }
+        public string name { get; set; }
     }
 }

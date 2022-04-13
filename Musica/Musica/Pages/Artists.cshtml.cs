@@ -12,9 +12,7 @@ namespace Musica
         [BindProperty]
         public string SearchedArtist { get; set; }
         [BindProperty]
-        public int Result { get; set; }
-        [BindProperty]
-        public Artist Artist { get; set; }
+        public ArtistSearch Artist { get; set; }
         public void OnGet()
         {
 
@@ -25,7 +23,6 @@ namespace Musica
             if (SearchedArtist != null)
             {
                 Artist = x.GetArtistData(SearchedArtist);
-                Result = x.GetArtistCodeAsync(SearchedArtist).Result;
             }
 
             return Page();

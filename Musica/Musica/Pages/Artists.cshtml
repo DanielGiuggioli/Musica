@@ -1,11 +1,12 @@
 ﻿@page
 @model Musica.ArtistsModel
 @{
+    ViewData["Title"] = "Search artist";
 }
 <form method="post">
     <div class="row">
-        <div class="col">
-            <input type="search" class="form-control" id="inputPassword2" placeholder="Search an artist" asp-for="SearchedArtist">
+        <div class="col-7">
+            <input type="search" class="form-control" placeholder="Search an artist" asp-for="SearchedArtist">
         </div>
         <div class="col">
             <input type="submit" class="btn btn-primary mb-3" value="Search">
@@ -13,20 +14,39 @@
     </div>
     @if (Model.Artist != null)
     {
-        <div class="text-center rounded border shadow">
-            <h2>@Model.SearchedArtist</h2>
-            <div>
-                <img src="@Model.Artist.image_url" />
+        <div class="rounded border shadow mt-2">
+            <h2 class="text-center">@Model.Artist.Artist.name</h2>
+            <div class="row">
+                <div class="col ml-3 mb-3">
+                    <img src="@Model.Artist.Artist.image_url" class="rounded float-start" alt="@Model.Artist.Artist.name img" style="max-height:42vh;max-width:42vh">
+                </div>
+                <div class="col">
+                    <p>                 description</p>
+                    <a href="@Model.Artist.Artist.url" target="_blank">Lyrics by genius</a>
+                </div>
             </div>
-            
-            <a href="@Model.Artist.url" target="_blank">Genius Link</a>
+
         </div>
         <div class="container">
             <div class="row">
-                <div class="col rounded border shadow mt-1 mr-1">
+                <div class="col-sm rounded border shadow mt-3 mr-1">
                     <h4>Famous Tracks</h4>
+                    @foreach (var song in Model.Artist.Songs)
+                    {
+                        <hr />
+                        <div class="row">
+                            <div class="col-3 mb-1">
+                                <img src="@song.header_image_thumbnail_url" class="rounded" alt="@song.title img" style="max-height:70px;max-width:70px">
+                            </div>
+                            <div class="col">
+                                <b><i>@song.title</i></b>
+                                <br />
+                                <i>@song.artist_names</i>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="col rounded border shadow mt-1 ml-1">
+                <div class="col rounded border shadow mt-3 ml-1">
                     <h4>Discography</h4>
                 </div>
             </div>

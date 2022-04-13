@@ -14,21 +14,41 @@ namespace Musica
     {
         static string key = "f94e2c864dmsh7e15a29f5dceed5p1e7333jsnd8ce5bcbe570";
         static string searchUrl = "https://genius.p.rapidapi.com/search?q=";
+        static string songUrl = "https://genius.p.rapidapi.com/songs/";
         static string artistUrl = "https://genius.p.rapidapi.com/artists/";
 
-        public Artist GetArtistData(string a)
+        public ArtistSearch GetArtistData(string a)
         {
-            int code = GetArtistCodeAsync(a).Result;
-            var artist = GetArtistDataAsync(code.ToString()).Result;
-            return artist;
+            var artistSearch = new ArtistSearch() { Songs = new List<Song>() };
+            SearchResponse searchResponse = SearchAsync(a).Result;
+            Hit[] hits = searchResponse.hits;
+            int artistCode;
+            if (hits[0].result.primary_artist.name.Length > a.Length+2)
+                artistCode = hits[1].result.primary_artist.id;
+            else
+                artistCode = hits[0].result.primary_artist.id;
+            var artist = GetArtistDataAsync(artistCode.ToString()).Result;
+            artistSearch.Artist = artist;
+            foreach(var x in hits)
+            {
+                Song song = GetSongDataAsync(x.result.id.ToString()).Result;
+                artistSearch.Songs.Add(song);
+            }
+            return artistSearch;
         }
 
-        public async Task<int> GetArtistCodeAsync(string artist)
+        public async Task<SearchResponse> SearchAsync(string artist)
         {
             string encArtist = HttpUtility.UrlEncode(artist);
             string body = GetBodyAsync(searchUrl + encArtist).Result;
-            CodeResult res = JsonConvert.DeserializeObject<CodeResult>(body);
-            return res.response.hits[0].result.primary_artist.id;
+            SearchResult res = JsonConvert.DeserializeObject<SearchResult>(body);
+            return res.response;
+        }
+        public async Task<Song> GetSongDataAsync(string code)
+        {
+            string body = GetBodyAsync(songUrl + code).Result;
+            SongResult res = JsonConvert.DeserializeObject<SongResult>(body);
+            return res.response.song;
         }
         public async Task<Artist> GetArtistDataAsync(string code)
         {
