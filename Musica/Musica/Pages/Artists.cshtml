@@ -14,10 +14,10 @@
     </div>
     @if (Model.Artist != null)
     {
-        <div class="rounded border shadow mt-2">
-            <h2 class="text-center">@Model.Artist.Artist.name</h2>
+        <h2 class="text-center">@Model.Artist.Artist.name</h2>
+        <div class=" container rounded border shadow mt-2">
             <div class="row">
-                <div class="col ml-3 mb-3">
+                <div class="col m-3">
                     <img src="@Model.Artist.Artist.image_url" class="rounded float-start" alt="@Model.Artist.Artist.name img" style="max-height:42vh;max-width:42vh">
                 </div>
                 <div class="col">
@@ -31,17 +31,17 @@
             <div class="row">
                 <div class="col-sm rounded border shadow mt-3 mr-1">
                     <h4>Famous Tracks</h4>
-                    @foreach (var song in Model.Artist.Songs)
+                    @for (int s = 0; s<5 && s< Model.Artist.Songs.Count; s++)
                     {
                         <hr />
                         <div class="row">
                             <div class="col-3 mb-1">
-                                <img src="@song.header_image_thumbnail_url" class="rounded" alt="@song.title img" style="max-height:70px;max-width:70px">
+                                <img src="@Model.Artist.Songs[s].header_image_thumbnail_url" class="rounded" alt="@Model.Artist.Songs[s].title img" style="max-height:70px;max-width:70px">
                             </div>
                             <div class="col">
-                                <b><i>@song.title</i></b>
+                                <b><i>@Model.Artist.Songs[s].title</i></b>
                                 <br />
-                                <i>@song.artist_names</i>
+                                <i>@Model.Artist.Songs[s].artist_names</i>
                             </div>
                         </div>
                     }

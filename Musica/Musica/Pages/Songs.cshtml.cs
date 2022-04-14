@@ -9,6 +9,8 @@ namespace Musica
 {
     public class SongsModel : PageModel
     {
+        [BindProperty]
+        public string SearchedSong { get; set; }
         public void OnGet()
         {
         }
