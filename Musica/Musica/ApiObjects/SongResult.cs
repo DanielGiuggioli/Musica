@@ -20,9 +20,9 @@ namespace Musica
         public int id { get; set; }
         public string title { get; set; }
         public string artist_names { get; set; }
+        public string full_title { get; set; }
         public string recording_location { get; set; }
         public string release_date_for_display { get; set; }
-        public string header_image_thumbnail_url { get; set; }
         public string header_image_url { get; set; }
         public string url { get; set; }
     }

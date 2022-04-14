@@ -15,14 +15,13 @@ namespace Musica
         public ArtistSearch Artist { get; set; }
         public void OnGet()
         {
-
         }
         public IActionResult OnPost()
         {
-            var x = new ApiCaller();
+            var apiCaller = new ApiCaller();
             if (SearchedArtist != null)
             {
-                Artist = x.GetArtistData(SearchedArtist);
+                Artist = apiCaller.GetArtistData(SearchedArtist);
             }
 
             return Page();

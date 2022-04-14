@@ -23,6 +23,7 @@ namespace Musica
     public class Result
     {
         public int id { get; set; }
+        public string full_title { get; set; }
         public PrimaryArtist primary_artist { get; set; }
     }
 

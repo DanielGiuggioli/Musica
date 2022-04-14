@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,22 +18,58 @@ namespace Musica
         static string songUrl = "https://genius.p.rapidapi.com/songs/";
         static string artistUrl = "https://genius.p.rapidapi.com/artists/";
 
+        public IList<Song> GetSongs(string s)
+        {
+            s = s.ToLower();
+            IList<Song> songs = new List<Song>();
+            SearchResponse searchResponse = SearchAsync(s).Result;
+            Hit[] hits = searchResponse.hits;
+            string[] searchSplit = s.Split(' ');
+            foreach (var x in hits)
+            {
+                bool isContained = true;
+                for(int index = 0; index<searchSplit.Length; index++)
+                {
+                    if (!isContained)
+                        break;
+                    if (!x.result.full_title.ToLower().Contains(searchSplit[index]))
+                        isContained = false;
+                }
+                if(isContained)
+                {
+                    Song song = GetSongDataAsync(x.result.id.ToString()).Result;
+                    songs.Add(song);
+                }
+            }
+            return songs;
+        }
         public ArtistSearch GetArtistData(string a)
         {
             var artistSearch = new ArtistSearch() { Songs = new List<Song>() };
             SearchResponse searchResponse = SearchAsync(a).Result;
             Hit[] hits = searchResponse.hits;
             int artistCode;
-            if (hits[0].result.primary_artist.name.Length > a.Length+2)
-                artistCode = hits[1].result.primary_artist.id;
-            else
-                artistCode = hits[0].result.primary_artist.id;
+            bool ok = false;
+            int c = -1;
+            while (!ok)
+            {
+                c++;
+                if (hits[c].result.primary_artist.name.Length <= a.Length + 2)
+                    ok = true;
+            }
+            artistCode = hits[c].result.primary_artist.id;
+
             var artist = GetArtistDataAsync(artistCode.ToString()).Result;
             artistSearch.Artist = artist;
-            foreach(var x in hits)
+            foreach (var x in hits)
             {
-                Song song = GetSongDataAsync(x.result.id.ToString()).Result;
-                artistSearch.Songs.Add(song);
+                if (x.result.primary_artist.id == artistCode)
+                {
+                    Song song = GetSongDataAsync(x.result.id.ToString()).Result;
+                    artistSearch.Songs.Add(song);
+                }
+                if (artistSearch.Songs.Count == 5)
+                    break;
             }
             return artistSearch;
         }
