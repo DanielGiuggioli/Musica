@@ -54,8 +54,10 @@ namespace Musica
             while (!ok)
             {
                 c++;
-                if (hits[c].result.primary_artist.name.Length <= a.Length + 2)
+                if (hits[c].result.primary_artist.name.Length <= a.Length + 5)
                     ok = true;
+                if (c == hits.Length - 1 && !ok)
+                    return null;
             }
             artistCode = hits[c].result.primary_artist.id;
 

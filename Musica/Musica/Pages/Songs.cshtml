@@ -1,7 +1,7 @@
 ﻿@page
 @model Musica.SongsModel
 @{
-    ViewData["Title"] = "Search artist";
+    ViewData["Title"] = "Search song";
 }
 <form method="post">
     <div class="row">
@@ -17,11 +17,11 @@
         @foreach (var s in Model.Songs)
         {
             <div class="container border rounded shadow m-2">
-                <div class="row m-2">
-                    <div class="col-4">
-                        <img src="@s.header_image_url" class="rounded float-start" alt="@s.full_title img" style="max-height:100px;max-width:100px">
+                <div class="row">
+                    <div class="col-4 mt-2 mb-2">
+                        <img src="@s.header_image_url" class="rounded float-left" alt="@s.full_title img" style="max-height:100px;max-width:100px">
                     </div>
-                    <div class="col">
+                    <div class="col mt-2">
                         <b><i>@s.title</i></b>
                         <br />
                         <i>@s.artist_names</i>

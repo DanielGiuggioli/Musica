@@ -20,9 +20,29 @@
                 <div class="col m-3">
                     <img src="@Model.Artist.Artist.image_url" class="img-fluid float-start" alt="@Model.Artist.Artist.name img" style="max-height:350px;max-width:350px">
                 </div>
+                <div class="col text-right mt-2 mr-3">
+                    <span class="float-right">
+                        <a href="javascript: setFavourite()">
+                            <i class="bi bi-star" style="font-size: 2.3em; "></i>
+                        </a>
+                    </span>
+                </div>
                 <div class="col">
-                    <p>                 description</p>
-                    <a href="@Model.Artist.Artist.url" target="_blank">Lyrics by genius</a>
+                    <div class="row m-2">
+                        <div class="col text-right mt-2 mr-3">
+                            <span class="float-right">
+                                <a href="javascript: setFavourite()">
+                                    <i class="bi bi-star" style="font-size: 2.3em; "></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>description</p>
+                            <a href="@Model.Artist.Artist.url" target="_blank">@Model.Artist.Artist.name on  genius</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
