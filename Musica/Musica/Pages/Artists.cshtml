@@ -4,70 +4,68 @@
     ViewData["Title"] = "Search artist";
 }
 <form method="post">
-    <div class="row">
-        <div class="col-7">
-            <input type="search" class="form-control" placeholder="Search an artist" asp-for="SearchedArtist">
-        </div>
-        <div class="col">
-            <input type="submit" class="btn btn-primary mb-3" value="Search">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-7">
+                <input type="search" class="form-control" placeholder="Search an artist" asp-for="SearchedArtist">
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary mb-3" value="Search">
+            </div>
         </div>
     </div>
+
     @if (Model.Artist != null)
     {
-        <h2 class="text-center">@Model.Artist.Artist.name</h2>
-        <div class=" container rounded border shadow mt-2">
-            <div class="row">
-                <div class="col m-3">
-                    <img src="@Model.Artist.Artist.image_url" class="img-fluid float-start" alt="@Model.Artist.Artist.name img" style="max-height:350px;max-width:350px">
-                </div>
-                <div class="col text-right mt-2 mr-3">
-                    <span class="float-right">
-                        <a href="javascript: setFavourite()">
-                            <i class="bi bi-star" style="font-size: 2.3em; "></i>
-                        </a>
-                    </span>
-                </div>
-                <div class="col">
-                    <div class="row m-2">
-                        <div class="col text-right mt-2 mr-3">
-                            <span class="float-right">
-                                <a href="javascript: setFavourite()">
-                                    <i class="bi bi-star" style="font-size: 2.3em; "></i>
-                                </a>
-                            </span>
-                        </div>
+        <div class="mb-3">
+            <h2 class="text-center">@Model.Artist.Artist.name</h2>
+            <div class=" container rounded border shadow mt-2">
+                <div class="row">
+                    <div class="col m-3">
+                        <img src="@Model.Artist.Artist.image_url" class="img-fluid float-start" alt="@Model.Artist.Artist.name img" style="max-height:350px;max-width:350px">
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <p>description</p>
-                            <a href="@Model.Artist.Artist.url" target="_blank">@Model.Artist.Artist.name on  genius</a>
+                    <div class="col">
+                        <div class="row m-2">
+                            <div class="col text-right mt-2 mr-3">
+                                <span class="float-right">
+                                    <a class="text-dark" href="javascript: setFavourite()">
+                                        <i class="bi bi-star" style="font-size: 2.3em; "></i>
+                                    </a>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm rounded border shadow mt-3 mr-1">
-                    <h4>Famous Tracks</h4>
-                    @foreach (var song in Model.Artist.Songs)
-                    {
-                        <hr />
                         <div class="row">
-                            <div class="col-3 mb-1">
-                                <img src="@song.header_image_url" class="rounded img-fluid" alt="@song.title img" style="max-height:70px;max-width:70px">
-                            </div>
                             <div class="col">
-                                <b><i>@song.title</i></b>
-                                <br />
-                                <i>@song.artist_names</i>
+                                <p>description</p>
+                                <a href="@Model.Artist.Artist.url" target="_blank">@Model.Artist.Artist.name on  genius</a>
                             </div>
                         </div>
-                    }
+                    </div>
                 </div>
-                <div class="col rounded border shadow mt-3 ml-1">
-                    <h4>Discography</h4>
+
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm rounded border shadow mt-3 mr-1">
+                        <h4>Famous Tracks</h4>
+                        @foreach (var song in Model.Artist.Songs)
+                        {
+                            <hr />
+                            <div class="row">
+                                <div class="col-3 mb-1">
+                                    <img src="@song.header_image_url" class="rounded img-fluid" alt="@song.title img" style="max-height:70px;max-width:70px">
+                                </div>
+                                <div class="col">
+                                    <b><i>@song.title</i></b>
+                                    <br />
+                                    <i>@song.artist_names</i>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col rounded border shadow mt-3 ml-1">
+                        <h4>Discography</h4>
+                    </div>
                 </div>
             </div>
         </div>

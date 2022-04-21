@@ -4,27 +4,41 @@
     ViewData["Title"] = "Search song";
 }
 <form method="post">
-    <div class="row">
-        <div class="col-7">
-            <input type="search" class="form-control" placeholder="Search a song" asp-for="SearchedSong">
-        </div>
-        <div class="col">
-            <input type="submit" class="btn btn-primary mb-3" value="Search">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-7">
+                <input type="search" class="form-control" placeholder="Search a song" asp-for="SearchedSong">
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary mb-3" value="Search">
+            </div>
         </div>
     </div>
+
     @if (Model.Songs != null)
     {
         @foreach (var s in Model.Songs)
         {
-            <div class="container border rounded shadow m-2">
+            <div class="container">
                 <div class="row">
-                    <div class="col-4 mt-2 mb-2">
-                        <img src="@s.header_image_url" class="rounded float-left" alt="@s.full_title img" style="max-height:100px;max-width:100px">
-                    </div>
-                    <div class="col mt-2">
-                        <b><i>@s.title</i></b>
-                        <br />
-                        <i>@s.artist_names</i>
+                    <div class="col rounded border shadow m-2">
+                        <div class="row">
+                            <div class="col-4 mt-2 mb-2">
+                                <img src="@s.header_image_url" class="rounded float-left" alt="@s.full_title img" style="max-height:100px;max-width:100px">
+                            </div>
+                            <div class="col mt-2">
+                                <b><i>@s.title</i></b>
+                                <br />
+                                <i>@s.artist_names</i>
+                            </div>
+                            <div class="col text-right mt-2 mr-3">
+                                <span class="float-right">
+                                    <a class="text-dark" href="javascript: setFavourite()">
+                                        <i class="bi bi-star" style="font-size: 2rem; "></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
