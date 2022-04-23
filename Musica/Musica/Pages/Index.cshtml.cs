@@ -14,5 +14,6 @@ namespace Musica.Pages
         {
         }
         
+        public User User { get; set; }
     }
 }
