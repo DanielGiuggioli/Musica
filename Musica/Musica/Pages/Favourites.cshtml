@@ -2,3 +2,15 @@
 @model Musica.FavouritesModel
 @{
 }
+@if (Model.User == null)
+{
+    <div class="text-center mt-5">
+        <p>You are not logged in! <a asp-page="/Users/Register" class="text-black-50">Register</a> or <a asp-page="/Users/Login" class="text-black-50">Log in</a></p>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
+    </div>
+}

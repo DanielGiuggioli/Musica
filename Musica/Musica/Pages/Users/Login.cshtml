@@ -1,0 +1,54 @@
+﻿@page
+@model Musica.LoginModel
+@{
+    ViewData["Title"] = "Log in";
+}
+<form method="post">
+    <div class="text-center">
+        <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
+    </div>
+    @if (Model.Value != null)
+    {
+        <div class="alert alert-success m-2 text-center" role="alert">
+            @Model.Value
+        </div>
+    }
+    <div class="text-sm-center mt-5">
+        <div class="row mt-2">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                <p>Username or Email</p>
+                <input type="text" class="form-control" asp-for="UsernameEmail" />
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                <p>Password</p>
+                <input type="password" class="form-control" asp-for="Password" />
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-block btn-dark" value="Log in" />
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-6">
+                <label>Are you a new user? <a asp-page="/users/register">Register</a></label>
+            </div>
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ErrorText))
+    {
+        <div class="alert alert-danger text-center">
+            <p>@Model.ErrorText</p>
+        </div>
+    }
+</form>

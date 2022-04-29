@@ -1,0 +1,56 @@
+﻿@page
+@model Musica.IndexModel
+@{
+    ViewData["Title"] = "User area";
+}
+<form method="post">
+    @if (Model.User == null)
+    {
+        <div class="text-center mt-5">
+            <p>You are not logged in! <a asp-page="/Users/Register" class="text-black-50">Register</a> or <a asp-page="/Users/Login" class="text-black-50">Log in</a></p>
+        </div>
+    }
+    else
+    {
+        <div class="text-center">
+            <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
+        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <p>Username: @Model.User.Username</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Email: @Model.User.Email</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <a href="/Users/Edit"><i class="bi bi-pencil-square"></i> Edit your data</a>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <a href="/Users/Changepassword"><i class="bi bi-lock"></i> Change password</a>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col">
+                    <a href="/Favourites/"><i class="bi bi-heart"></i> Your favourites (@Model.FavCount)</a>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-2">
+                    <a href="/Users/Login" class="btn btn-outline-danger">Switch account</a>
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col">
+                    <input type="submit" value="Log out" class="btn btn-danger" />
+                </div>
+            </div>
+        </div>
+    }
+</form>

@@ -9,6 +9,11 @@ namespace Musica
 {
     public class ArtistsModel : PageModel
     {
+        private readonly MusicaDbContext _context;
+        public ArtistsModel(MusicaDbContext context)
+        {
+            _context = context;
+        }
         [BindProperty]
         public string SearchedArtist { get; set; }
         [BindProperty]

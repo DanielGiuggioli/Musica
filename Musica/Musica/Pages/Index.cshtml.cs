@@ -10,10 +10,16 @@ namespace Musica.Pages
 {
     public class IndexModel : PageModel
     {
-        public IndexModel()
+        private readonly MusicaDbContext _context;
+        public IndexModel(MusicaDbContext context)
         {
+            _context = context;
         }
-        
         public User User { get; set; }
+        public async Task<IActionResult> OnGetAsync()
+        {
+            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
+            return Page();
+        }
     }
 }

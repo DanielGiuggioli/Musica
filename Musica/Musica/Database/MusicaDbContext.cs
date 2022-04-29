@@ -12,7 +12,8 @@ namespace Musica
         public DbSet<User> Users { get; set; }
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Song> Songs { get; set; }
-        public DbSet<UserArtist> UsersArtist { get; set; }
+        public DbSet<UserArtist> UsersArtists { get; set; }
         public DbSet<UserSong> UsersSongs { get; set; }
+        public DbSet<EmailToken> EmailTokens { get; set; }
     }
 }
