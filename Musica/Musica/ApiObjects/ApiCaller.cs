@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -62,6 +63,11 @@ namespace Musica
             artistCode = hits[c].result.primary_artist.id;
 
             var artist = GetArtistDataAsync(artistCode.ToString()).Result;
+            var body = "[" + GetDynArtistDataAsync(artistCode.ToString()) + "]";
+            dynamic dynArtist = JArray.Parse(body);
+
+            artist.dynDescription = GetDescription(dynArtist);
+
             artistSearch.Artist = artist;
             foreach (var x in hits)
             {
@@ -74,6 +80,39 @@ namespace Musica
                     break;
             }
             return artistSearch;
+        }
+
+        public string GetDescription(dynamic input)
+        {
+            var result = "";
+            dynamic children = input[0].response.artist.description.dom.children;
+            foreach(var a in children)
+            {
+               result += a1(a, "");
+            }
+            return result;
+        }
+
+        public string a1(dynamic a, string result)
+        {
+            if (a is null)
+                return result;
+
+            if (a.GetType() == typeof(JObject))
+                result += a1(a.children, result);
+
+            if (a.GetType() == typeof(JArray))
+            {
+                foreach (var i in a)
+                {
+                    result += a1(i, result);
+                }
+            }
+
+            if (a.GetType() == typeof(JValue))
+                return a.Value.ToString();
+
+            return result;
         }
 
         public async Task<SearchResponse> SearchAsync(string artist)
@@ -95,6 +134,12 @@ namespace Musica
             ArtistResult res = JsonConvert.DeserializeObject<ArtistResult>(body);
             return res.response.artist;
         }
+
+        public String GetDynArtistDataAsync(string code)
+        {
+            return GetBodyAsync(artistUrl + code).Result;          
+        }
+
         public async Task<string> GetBodyAsync(string url)
         {
             var client = new HttpClient();
