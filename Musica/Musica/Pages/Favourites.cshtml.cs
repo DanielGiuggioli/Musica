@@ -30,6 +30,8 @@ namespace Musica
                                                        .Select(y => y.IdArtist)
                                                        .ToList();
                 FavArtists = _context.Artists.Where(x => IdArtists.Contains(x.id))
+                                            .ToList()
+                                            .OrderBy(x=> x.name.ToLower())
                                             .ToList();
 
                 var usersSongs = _context.UsersSongs.ToList();
@@ -38,6 +40,8 @@ namespace Musica
                                                        .Select(y => y.IdSong)
                                                        .ToList();
                 FavSongs = _context.Songs.Where(x => IdSongs.Contains(x.id))
+                                            .ToList()
+                                            .OrderBy(x=> x.title.ToLower())
                                             .ToList();
             }
 
