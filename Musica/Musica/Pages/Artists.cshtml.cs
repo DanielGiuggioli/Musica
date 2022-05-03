@@ -18,8 +18,10 @@ namespace Musica
         public string SearchedArtist { get; set; }
         [BindProperty]
         public ArtistSearch Artist { get; set; }
+        public User User { get; set; }
         public void OnGet()
         {
+            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         }
         public IActionResult OnPost()
         {
@@ -27,7 +29,16 @@ namespace Musica
             if (SearchedArtist != null)
             {
                 Artist = apiCaller.GetArtistData(SearchedArtist);
+                if (_context.Artists.Where(x => x.id == Artist.Artist.id).SingleOrDefault() == default)
+                    _context.Artists.Add(Artist.Artist);
+                foreach (var s in Artist.Songs)
+                {
+                    if (_context.Songs.Where(x => x.id == s.id).SingleOrDefault() == default)
+                        _context.Songs.Add(s);
+                }
+                _context.SaveChangesAsync();
             }
+            
 
             return Page();
         }

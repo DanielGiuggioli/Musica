@@ -28,11 +28,4 @@ namespace Musica
             return this.dynDescription;
         }
     }
-    public static class DescriptionAlgorithm
-    {
-        public static string GetText(object description)
-        {
-            return description.ToString();
-        }
-    }
 }

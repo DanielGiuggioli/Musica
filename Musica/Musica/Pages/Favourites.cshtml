@@ -13,4 +13,38 @@ else
     <div class="text-center">
         <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
     </div>
+    <div id="favArtist">
+        @foreach(var a in Model.FavArtists)
+        {
+
+        }
+    </div>
+    <div id="favSongs">
+        @foreach (var s in Model.FavSongs)
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col rounded border shadow m-2">
+                        <div class="row">
+                            <div class="col-4 mt-2 mb-2">
+                                <img src="@s.header_image_url" class="rounded float-left" alt="@s.full_title img" style="max-height:100px;max-width:100px">
+                            </div>
+                            <div class="col mt-2">
+                                <b><i>@s.title</i></b>
+                                <br />
+                                <i>@s.artist_names</i>
+                            </div>
+                            <div class="col text-right mt-2 mr-3">
+                                <span class="float-right">
+                                    <a class="text-dark" href="javascript: setFavourite()">
+                                        <i class="bi bi-star" style="font-size: 2rem; "></i>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }

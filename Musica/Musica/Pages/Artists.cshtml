@@ -3,7 +3,36 @@
 @{
     ViewData["Title"] = "Search artist";
 }
+@if (Model.User != null)
+{
+    <script>
+    function setFavouriteArtist(pId) {
+        var el = document.getElementById('favourite');
 
+        if (el.classList.contains("bi-star-fill")) {
+
+                fetch('/Favourites?handler=DeleteFavouriteArtist&userId=@Model.User.Id&artistId=' + pId)
+                .then(r => {
+
+                        el.classList.add("bi-star");
+                        el.classList.remove("bi-star-fill");
+
+                });
+
+        } else {
+
+            fetch('/Favourites?handler=SetFavouriteArtist&userId=@Model.User.Id&artistId=' + pId)
+                .then(r => {
+
+                        el.classList.add("bi-star-fill");
+                        el.classList.remove("bi-star");
+
+                });
+    }
+
+    }
+    </script>
+}
 <div style="padding-bottom: 15px;">
     <form method="post">
         <div class="container mt-3">
@@ -20,15 +49,15 @@
         @if (Model.Artist != null)
         {
             <div class="row m-2">
-                <div class="col-md rounded border shadow bg5 mt-sm-3 mr-2">
+                <div class="col-md rounded border shadow bg5 mt-3 mr-2">
                     <div class="row">
                         <div class="col pl-3">
                             <b style="color:#000000;font-size:2.4em;">@Model.Artist.Artist.name</b>
                         </div>
                         <div class="col">
                             <span class="float-right">
-                                <a class="text-dark" href="javascript: setFavourite()">
-                                    <i class="bi bi-star" style="font-size: 2.3em;"></i>
+                                <a class="text-dark" href="javascript: setFavourite(@Model.Artist.Artist.id)">
+                                    <i id="favourite" class="bi bi-star" style="font-size: 2.3em;"></i>
                                 </a>
                             </span>
                         </div>
@@ -38,16 +67,19 @@
                             <img src="@Model.Artist.Artist.image_url" class="img-fluid float-start" alt="@Model.Artist.Artist.name img" style="max-height:350px;max-width:350px">
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col text-center">
-                            <p>@Model.Artist.Artist.GetDescription()</p>
+                            <div class="m-3">
+                                <b>@Model.Artist.Artist.GetDescription()</b>
+                            </div>
                             <div class="justify-content-end">
                                 <a href="@Model.Artist.Artist.url" target="_blank">@Model.Artist.Artist.name on  genius</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md rounded border shadow bg5 ml-2 mt-sm-3">
+                <div class="col-md rounded border shadow bg5 ml-2 mt-3">
                     <div class="text-center p-1">
                         <b style="color:#000000;font-size:2.1em;">Famous tracks</b>
                     </div>

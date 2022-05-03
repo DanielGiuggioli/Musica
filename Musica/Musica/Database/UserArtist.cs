@@ -10,5 +10,6 @@ namespace Musica
         public string Id { get; set; }
         public string IdUser { get; set; }
         public int IdArtist { get; set; }
+        public bool IsFavourite { get; set; }
     }
 }

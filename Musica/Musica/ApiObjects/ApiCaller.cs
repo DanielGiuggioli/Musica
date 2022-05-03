@@ -88,7 +88,7 @@ namespace Musica
             dynamic children = input[0].response.artist.description.dom.children;
             foreach(var a in children)
             {
-               result += a1(a, "");
+               result += $"{a1(a, "")}\n";
             }
             return result;
         }
@@ -99,13 +99,13 @@ namespace Musica
                 return result;
 
             if (a.GetType() == typeof(JObject))
-                result += a1(a.children, result);
+                result = a1(a.children, result);
 
             if (a.GetType() == typeof(JArray))
             {
                 foreach (var i in a)
                 {
-                    result += a1(i, result);
+                    result += a1(i, "");
                 }
             }
 
