@@ -84,5 +84,42 @@ namespace Musica
 
             return Content("true");
         }
+
+        /// <summary>
+        /// Pages/Favourites?handler=SetFavouriteSong&userId={userId}&songId={songId}
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public IActionResult OnGetSetFavouriteSong(string userId, int songId)
+        {
+            var u = _context.UsersSongs
+                .Where(x => x.IdUser == userId && x.IdSong == songId)
+                .FirstOrDefault();
+
+            u.IsFavourite = true;
+
+            _context.SaveChanges();
+
+            return Content("true");
+        }
+
+        /// <summary>
+        /// Pages/Favourites?handler=DeleteFavouriteSong&userId={userId}&songId={songId}
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="songId"></param>
+        /// <returns></returns>
+        public IActionResult OnGetDeleteFavouriteSong(string userId, int songId)
+        {
+            var u = _context.UsersSongs
+                .Where(x => x.IdUser == userId && x.IdSong == songId)
+                .FirstOrDefault();
+
+            u.IsFavourite = false;
+
+            _context.SaveChanges();
+
+            return Content("true");
+        }
     }
 }
