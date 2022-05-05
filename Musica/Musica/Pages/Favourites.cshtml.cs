@@ -18,14 +18,13 @@ namespace Musica
         public IList<Artist> FavArtists { get; set; }
         [BindProperty]
         public IList<Song> FavSongs { get; set; }
-        public User User { get; set; }
+        public User GetUser() => CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         public async Task<IActionResult> OnGetAsync()
         {
-            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
             if (User != null)
             {
                 var usersArtists = _context.UsersArtists.ToList();
-                IList<int> IdArtists = usersArtists.Where(x => x.IdUser == User.Id && x.IsFavourite)
+                IList<int> IdArtists = usersArtists.Where(x => x.IdUser == GetUser().Id && x.IsFavourite)
                                                        .ToList()
                                                        .Select(y => y.IdArtist)
                                                        .ToList();
@@ -35,7 +34,7 @@ namespace Musica
                                             .ToList();
 
                 var usersSongs = _context.UsersSongs.ToList();
-                IList<int> IdSongs = usersSongs.Where(x => x.IdUser == User.Id && x.IsFavourite)
+                IList<int> IdSongs = usersSongs.Where(x => x.IdUser == GetUser().Id && x.IsFavourite)
                                                        .ToList()
                                                        .Select(y => y.IdSong)
                                                        .ToList();

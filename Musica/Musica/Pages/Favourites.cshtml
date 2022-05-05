@@ -1,7 +1,91 @@
 ﻿@page
 @model Musica.FavouritesModel
 @{
+    ViewData["Title"] = "Favourites";
 }
+
+<script>
+    function showArtists() {
+        var artists = document.getElementById("showArtists");
+        var songs = document.getElementById("showSongs");
+
+        var favA = document.getElementById("favArtists");
+        var favS = document.getElementById("favSongs");
+
+        favA.style.display = "block";
+        favS.style.display = "none";
+
+        artists.classList.add("shadow");
+        songs.classList.remove("shadow");
+
+    }
+
+    function showSongs() {
+        var artists = document.getElementById("showArtists");
+        var songs = document.getElementById("showSongs");
+
+        var favA = document.getElementById("favArtists");
+        var favS = document.getElementById("favSongs");
+
+        favA.style.display = "none";
+        favS.style.display = "block";
+
+        artists.classList.remove("shadow");
+        songs.classList.add("shadow");
+    }
+
+    function setFavouriteArtist(pId, uId) {
+        var el = document.getElementById('favourite');
+
+        if (el.classList.contains("bi-star-fill")) {
+
+            fetch('/Favourites?handler=DeleteFavouriteArtist&userId=' + uId + '&artistId=' + pId)
+                .then(r => {
+
+                    el.classList.add("bi-star");
+                    el.classList.remove("bi-star-fill");
+
+                });
+
+        } else {
+
+            fetch('/Favourites?handler=SetFavouriteArtist&userId=' + uId + '&artistId=' + pId)
+                .then(r => {
+
+                    el.classList.add("bi-star-fill");
+                    el.classList.remove("bi-star");
+
+                });
+        }
+    }
+
+    function setFavouriteSong(pId, uId) {
+        var el = document.getElementById(pId + 'favourite');
+
+        if (el.classList.contains("bi-star-fill")) {
+
+            fetch('/Favourites?handler=DeleteFavouriteSong&userId=' + uId + '&songId=' + pId)
+                .then(r => {
+
+                    el.classList.add("bi-star");
+                    el.classList.remove("bi-star-fill");
+
+                });
+
+        } else {
+
+            fetch('/Favourites?handler=SetFavouriteSong&userId=' + uId + '&songId=' + pId)
+                .then(r => {
+
+                    el.classList.add("bi-star-fill");
+                    el.classList.remove("bi-star");
+
+                });
+        }
+
+    }
+</script>
+
 @if (Model.User == null)
 {
     <div class="text-center mt-5">
@@ -13,7 +97,17 @@ else
     <div class="text-center">
         <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
     </div>
-    <div id="favArtist" style="display:block;">
+    <div class="container">
+        <div class="row">
+            <div class="col m-3 p-2 rounded border shadow text-center" id="showArtists">
+                <a href="javascript:showArtists()" class="nav-link" style="color:black">Artists</a>
+            </div>
+            <div class="col m-3 p-2 rounded border text-center" id="showSongs">
+                <a href="javascript:showSongs()" class="nav-link" style="color:black">Songs</a>
+            </div>
+        </div>
+    </div>
+    <div id="favArtists" style="display:block;" class="m-3">
         @foreach (var a in Model.FavArtists)
         {
             <div class="container">
@@ -28,7 +122,7 @@ else
                             </div>
                             <div class="col text-right mt-2 mr-3">
                                 <span class="float-right">
-                                    <a class="text-dark" href="javascript:setFavouriteArtist()">
+                                    <a class="text-dark" href="javascript:setFavouriteArtist('@a.id', '@Model.GetUser().Id')">
                                         <i class="bi bi-star-fill" style="font-size: 2rem; "></i>
                                     </a>
                                 </span>
@@ -56,7 +150,7 @@ else
                             </div>
                             <div class="col text-right mt-2 mr-3">
                                 <span class="float-right">
-                                    <a class="text-dark" href="javascript: setFavourite()">
+                                    <a class="text-dark" href="javascript: setFavouriteSong('@s.id', '@Model.GetUser().Id')">
                                         <i class="bi bi-star-fill" style="font-size: 2rem; "></i>
                                     </a>
                                 </span>

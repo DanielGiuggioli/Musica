@@ -135,7 +135,7 @@ namespace Musica
             return res.response.artist;
         }
 
-        public String GetDynArtistDataAsync(string code)
+        public string GetDynArtistDataAsync(string code)
         {
             return GetBodyAsync(artistUrl + code).Result;          
         }
