@@ -35,7 +35,7 @@
     }
 
     function setFavouriteArtist(pId, uId) {
-        var el = document.getElementById('favourite');
+        var el = document.getElementById(pId + 'favourite');
 
         if (el.classList.contains("bi-star-fill")) {
 
@@ -123,7 +123,7 @@ else
                             <div class="col text-right mt-2 mr-3">
                                 <span class="float-right">
                                     <a class="text-dark" href="javascript:setFavouriteArtist('@a.id', '@Model.GetUser().Id')">
-                                        <i class="bi bi-star-fill" style="font-size: 2rem; "></i>
+                                        <i id="@(a.id + "favourite")" class="bi bi-star-fill" style="font-size: 2rem; "></i>
                                     </a>
                                 </span>
                             </div>
@@ -151,7 +151,7 @@ else
                             <div class="col text-right mt-2 mr-3">
                                 <span class="float-right">
                                     <a class="text-dark" href="javascript: setFavouriteSong('@s.id', '@Model.GetUser().Id')">
-                                        <i class="bi bi-star-fill" style="font-size: 2rem; "></i>
+                                        <i id="@(s.id + "favourite")" class="bi bi-star-fill" style="font-size: 2rem; "></i>
                                     </a>
                                 </span>
                             </div>

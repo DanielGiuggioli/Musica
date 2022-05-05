@@ -21,9 +21,16 @@ namespace Musica
         {
             User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
             if (User != null)
-                FavCount = _context.UsersArtists.Where(x => x.IdUser == User.Id)
+            {
+                int favACount = _context.UsersArtists.Where(x => x.IdUser == User.Id && x.IsFavourite)
                                              .ToList()
                                              .Count;
+                int favSCount = _context.UsersSongs.Where(x => x.IdUser == User.Id && x.IsFavourite)
+                                             .ToList()
+                                             .Count;
+                FavCount = favACount + favSCount;
+            }
+                
             return Page();
         }
         public async Task<IActionResult> OnPostAsync()

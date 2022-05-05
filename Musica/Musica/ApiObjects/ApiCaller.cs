@@ -47,15 +47,15 @@ namespace Musica
         public ArtistSearch GetArtistData(string a)
         {
             var artistSearch = new ArtistSearch() { Songs = new List<Song>() };
-            SearchResponse searchResponse = SearchAsync(a).Result;
-            Hit[] hits = searchResponse.hits;
+            Hit[] hits = GetHits(a); 
             int artistCode;
             bool ok = false;
             int c = -1;
+            var artistNameSplitted = a.Split(' ');
             while (!ok)
             {
                 c++;
-                if (hits[c].result.primary_artist.name.Length <= a.Length + 5)
+                if (hits[c].result.primary_artist.name.Split(' ').Length <= artistNameSplitted.Count())
                     ok = true;
                 if (c == hits.Length - 1 && !ok)
                     return null;
@@ -69,9 +69,21 @@ namespace Musica
             artist.dynDescription = GetDescription(dynArtist);
 
             artistSearch.Artist = artist;
+            PopulateFamousSongs(hits, artistSearch);
+            
+            return artistSearch;
+        }
+
+        public Hit[] GetHits(string a)
+        {
+            SearchResponse searchResponse = SearchAsync(a).Result;
+            return searchResponse.hits;
+        }
+        public void PopulateFamousSongs(Hit[] hits, ArtistSearch artistSearch)
+        {
             foreach (var x in hits)
             {
-                if (x.result.primary_artist.id == artistCode)
+                if (x.result.primary_artist.id == artistSearch.Artist.id)
                 {
                     Song song = GetSongDataAsync(x.result.id.ToString()).Result;
                     artistSearch.Songs.Add(song);
@@ -79,9 +91,7 @@ namespace Musica
                 if (artistSearch.Songs.Count == 5)
                     break;
             }
-            return artistSearch;
         }
-
         public string GetDescription(dynamic input)
         {
             var result = "";

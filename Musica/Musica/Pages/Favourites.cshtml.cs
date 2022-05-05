@@ -30,7 +30,7 @@ namespace Musica
                                                        .ToList();
                 FavArtists = _context.Artists.Where(x => IdArtists.Contains(x.id))
                                             .ToList()
-                                            .OrderBy(x=> x.name.ToLower())
+                                            .OrderBy(x=> x.name.ToUpper())
                                             .ToList();
 
                 var usersSongs = _context.UsersSongs.ToList();
