@@ -1,4 +1,100 @@
 ﻿@page
 @model Musica.Pages.ArtistDetailModel
 @{
+    ViewData["Title"] = "Artist detail";
 }
+@if (Model.GetUser() != null)
+{
+    <script>
+    function setFavouriteArtist(pId, uId) {
+        var el = document.getElementById('favourite');
+
+        if (el.classList.contains("bi-star-fill")) {
+
+                fetch('/Favourites?handler=DeleteFavouriteArtist&userId=' + uId +'&artistId=' + pId)
+                .then(r => {
+
+                        el.classList.add("bi-star");
+                        el.classList.remove("bi-star-fill");
+
+                });
+
+        } else {
+
+            fetch('/Favourites?handler=SetFavouriteArtist&userId=' + uId + '&artistId=' + pId)
+                .then(r => {
+
+                        el.classList.add("bi-star-fill");
+                        el.classList.remove("bi-star");
+
+                });
+    }
+
+    }
+    </script>
+}
+<div class="text-center">
+    <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
+</div>
+<div style="padding-bottom: 15px;">
+        @if (Model.Artist != null)
+        {
+            <div class="row m-2">
+                <div class="col-md rounded border shadow bg5 mt-3 mr-2">
+                    <div class="row">
+                        <div class="col pl-3">
+                            <b style="color:#000000;font-size:2.4em;">@Model.Artist.Artist.name</b>
+                        </div>
+                        @if (Model.GetUser() != null)
+                        {
+                            <div class="col">
+                                <span class="float-right">
+                                    <a class="text-dark" href="javascript:setFavouriteArtist(@Model.Artist.Artist.id, '@Model.GetUser().Id')">
+                                        <i id="favourite" class="bi bi-star-fill" style="font-size: 2.3em;"></i>
+                                    </a>
+                                </span>
+                            </div>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col text-center mt-3">
+                            <img src="@Model.Artist.Artist.image_url" class="img-fluid float-start" alt="@Model.Artist.Artist.name img" style="max-height:350px;max-width:350px">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col text-center">
+                            <div class="m-3">
+                                <b>@Model.Artist.Artist.GetDescription()</b>
+                            </div>
+                            <div class="justify-content-end">
+                                <a href="@Model.Artist.Artist.url" target="_blank">@Model.Artist.Artist.name on  genius</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md rounded border shadow bg5 ml-2 mt-3">
+                    <div class="text-center p-1">
+                        <b style="color:#000000;font-size:2.1em;">Famous tracks</b>
+                    </div>
+                    <hr />
+                    @foreach (var song in Model.Artist.Songs)
+                    {
+
+                        <div class="row">
+                            <div class="col-3 mb-1">
+                                <img src="@song.header_image_url" class="rounded img-fluid" alt="@song.title img" style="max-height:70px;max-width:70px">
+                            </div>
+                            <div class="col">
+                                <b><i>@song.title</i></b>
+                                <br />
+                                <i>@song.artist_names</i>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                </div>
+            </div>
+
+        }
+</div>

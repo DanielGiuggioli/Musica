@@ -44,7 +44,7 @@ namespace Musica
             User User = _context.Users.SingleOrDefault(x => x.Id == IdUser);
             User.IsVerified = true;
             _context.SaveChanges();
-            return RedirectToPage("/users/login", new { value = "Now your account is verificated, you can log in and use BestPrices without restrictions" });
+            return RedirectToPage("/users/login", new { value = "Now your account is verificated, you can log in and use Musica without restrictions" });
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Musica
         public User GetUser() => CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         public async Task<IActionResult> OnGetAsync()
         {
-            if (User != null)
+            if (GetUser() != null)
             {
                 var usersArtists = _context.UsersArtists.ToList();
                 IList<int> IdArtists = usersArtists.Where(x => x.IdUser == GetUser().Id && x.IsFavourite)

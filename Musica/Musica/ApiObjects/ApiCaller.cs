@@ -81,6 +81,7 @@ namespace Musica
         }
         public void PopulateFamousSongs(Hit[] hits, ArtistSearch artistSearch)
         {
+            artistSearch.Songs = new List<Song>();
             foreach (var x in hits)
             {
                 if (x.result.primary_artist.id == artistSearch.Artist.id)

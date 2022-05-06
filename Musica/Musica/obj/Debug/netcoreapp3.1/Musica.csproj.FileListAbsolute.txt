@@ -180,3 +180,4 @@ C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcore
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\Users\Verification.cshtml.g.cs
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csprojAssemblyReference.cache
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\ArtistDetail.cshtml.g.cs
+C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\ArtistDetail.cshtml.g.cs
