@@ -1,0 +1,15 @@
+﻿@page
+@model Musica.Pages.SongDetailModel
+@{
+    ViewData["Title"] = "Song detail";
+}
+<div class="text-center">
+    <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <b style="color:#000000;font-size:2.4em;">@Model.Song.full_title</b>
+        </div>
+    </div>
+</div>

@@ -28,16 +28,20 @@ namespace Musica
             if (SearchedSong != null)
             {
                 Songs = apiCaller.GetSongs(SearchedSong);
-                foreach(var s in Songs)
+                foreach (var s in Songs)
                 {
                     if (_context.Songs.Where(x => x.id == s.id).SingleOrDefault() == default)
                         _context.Songs.Add(s);
-                    if (_context.UsersSongs.Where(x => x.IdUser == GetUser().Id && x.IdSong == s.id).SingleOrDefault() == default)
-                        _context.UsersSongs.Add(new UserSong() { Id = Guid.NewGuid().ToString(), IdSong = s.id, IdUser = GetUser().Id });
+                    if (GetUser() != null)
+                    {
+                        if (_context.UsersSongs.Where(x => x.IdUser == GetUser().Id && x.IdSong == s.id).SingleOrDefault() == default)
+                            _context.UsersSongs.Add(new UserSong() { Id = Guid.NewGuid().ToString(), IdSong = s.id, IdUser = GetUser().Id });
+                    }
                     _context.SaveChanges();
-                }    
+                }
             }
             return Page();
+
         }
     }
 }

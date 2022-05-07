@@ -31,19 +31,25 @@ namespace Musica
                 Artist = apiCaller.GetArtistData(SearchedArtist);
                 if (_context.Artists.Where(x => x.id == Artist.Artist.id).SingleOrDefault() == default)
                     _context.Artists.Add(Artist.Artist);
-                if (_context.UsersArtists.Where(x => x.IdArtist == Artist.Artist.id && x.IdUser == GetUser().Id).SingleOrDefault() == default)
-                    _context.UsersArtists.Add(new UserArtist() { Id = Guid.NewGuid().ToString(), IdArtist = Artist.Artist.id, IdUser = GetUser().Id });
-
-                foreach (var s in Artist.Songs)
+                if (GetUser() != null)
                 {
-                    if (_context.Songs.Where(x => x.id == s.id).SingleOrDefault() == default)
-                        _context.Songs.Add(s);
+                    if (_context.UsersArtists.Where(x => x.IdArtist == Artist.Artist.id && x.IdUser == GetUser().Id).SingleOrDefault() == default)
+                        _context.UsersArtists.Add(new UserArtist() { Id = Guid.NewGuid().ToString(), IdArtist = Artist.Artist.id, IdUser = GetUser().Id });
+                }
+            }
+
+            foreach (var s in Artist.Songs)
+            {
+                if (_context.Songs.Where(x => x.id == s.id).SingleOrDefault() == default)
+                    _context.Songs.Add(s);
+                if (GetUser() != null)
+                {
                     if (_context.UsersSongs.Where(x => x.IdSong == s.id && x.IdUser == GetUser().Id).SingleOrDefault() == default)
                         _context.UsersSongs.Add(new UserSong() { Id = Guid.NewGuid().ToString(), IdSong = s.id, IdUser = GetUser().Id });
                 }
                 _context.SaveChangesAsync();
             }
-            
+
             return Page();
         }
     }

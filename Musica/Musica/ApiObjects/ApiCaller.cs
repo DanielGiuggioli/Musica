@@ -55,7 +55,7 @@ namespace Musica
             while (!ok)
             {
                 c++;
-                if (hits[c].result.primary_artist.name.Split(' ').Length <= artistNameSplitted.Count())
+                if (hits[c].result.primary_artist.name.Split(' ').Length <= artistNameSplitted.Count() && hits[c].result.primary_artist.name.ToLower().Contains(a.ToLower()))
                     ok = true;
                 if (c == hits.Length - 1 && !ok)
                     return null;
