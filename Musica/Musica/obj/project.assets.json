@@ -336,6 +336,12 @@
           "lib/netstandard2.1/WebDriver.dll": {}
         }
       },
+      "Selenium.WebDriver.ChromeDriver/101.0.4951.4100": {
+        "type": "package",
+        "build": {
+          "build/Selenium.WebDriver.ChromeDriver.targets": {}
+        }
+      },
       "SQLitePCLRaw.bundle_e_sqlite3/2.0.4": {
         "type": "package",
         "dependencies": {
@@ -1173,6 +1179,24 @@
         "selenium.webdriver.nuspec"
       ]
     },
+    "Selenium.WebDriver.ChromeDriver/101.0.4951.4100": {
+      "sha512": "S/IPXjVlR1JPNzsZsOiBkGFHyv+KYhDEAh0cGzxVvhnd4VFo8iI+HGye8R58ec/6lUoFMw6e/Y/OvFAJElqmbA==",
+      "type": "package",
+      "path": "selenium.webdriver.chromedriver/101.0.4951.4100",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "build/DefinePropertiesChromeDriver.targets",
+        "build/Selenium.WebDriver.ChromeDriver.targets",
+        "driver/linux64/chromedriver",
+        "driver/mac64/chromedriver",
+        "driver/win32/chromedriver.exe",
+        "nupkg-icon.png",
+        "selenium.webdriver.chromedriver.101.0.4951.4100.nupkg.sha512",
+        "selenium.webdriver.chromedriver.nuspec"
+      ]
+    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.4": {
       "sha512": "f5U8Sw0lRym8tTraJ2zm6OqcDrcrEVvcKDtYlKSLs3Ox9SerkwkPXiFXb/uiW0g2tJdUw6oBhsxI/l5DoRxXMg==",
       "type": "package",
@@ -1689,27 +1713,28 @@
       "Microsoft.EntityFrameworkCore.Sqlite.Core >= 5.0.14",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.14",
       "Newtonsoft.Json >= 13.0.1",
-      "Selenium.WebDriver >= 4.1.1"
+      "Selenium.WebDriver >= 4.1.1",
+      "Selenium.WebDriver.ChromeDriver >= 101.0.4951.4100"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\giuggioli.17210\\.nuget\\packages\\": {},
+    "C:\\Users\\giugg\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\giuggioli.17210\\Documents\\GitHub\\Musica\\Musica\\Musica\\Musica.csproj",
+      "projectUniqueName": "C:\\Users\\giugg\\source\\repos\\Musica\\Musica\\Musica\\Musica.csproj",
       "projectName": "Musica",
-      "projectPath": "C:\\Users\\giuggioli.17210\\Documents\\GitHub\\Musica\\Musica\\Musica\\Musica.csproj",
-      "packagesPath": "C:\\Users\\giuggioli.17210\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\giuggioli.17210\\Documents\\GitHub\\Musica\\Musica\\Musica\\obj\\",
+      "projectPath": "C:\\Users\\giugg\\source\\repos\\Musica\\Musica\\Musica\\Musica.csproj",
+      "packagesPath": "C:\\Users\\giugg\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\giugg\\source\\repos\\Musica\\Musica\\Musica\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\giuggioli.17210\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\giugg\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1760,6 +1785,10 @@
           "Selenium.WebDriver": {
             "target": "Package",
             "version": "[4.1.1, )"
+          },
+          "Selenium.WebDriver.ChromeDriver": {
+            "target": "Package",
+            "version": "[101.0.4951.4100, )"
           }
         },
         "imports": [
@@ -1772,12 +1801,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.13, 3.1.13]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -1786,7 +1809,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

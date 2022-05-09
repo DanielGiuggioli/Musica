@@ -25,5 +25,6 @@ namespace Musica
         public string release_date_for_display { get; set; }
         public string header_image_url { get; set; }
         public string url { get; set; }
+        public string Lyrics { get; set; }
     }
 }

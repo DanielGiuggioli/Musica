@@ -60,11 +60,11 @@
                                 <img src="@s.header_image_url" class="rounded float-left" alt="@s.full_title img" style="max-height:100px;max-width:100px">
                             </div>
                             <div class="col mt-2">
-                                <b><i>@s.title</i></b>
+                                <a href="/SongDetail?id=@s.id" style="color:black"><b><i>@s.title</i></b></a>
                                 <br />
                                 <i>@s.artist_names</i>
                             </div>
-                            @if (Model.GetUser() != null)
+                            @if (Model.GetUser() == null || !Model.GetUser().IsVerified)
                             {
                                 <div class="col text-right mt-2 mr-3">
                                     <span class="float-right">

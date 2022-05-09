@@ -23,11 +23,9 @@ namespace Musica
         public string newConfirmedPassword { get; set; }
         [BindProperty]
         public string ErrorText { get; set; }
-        [BindProperty]
-        public User User { get; set; }
+        public User GetUser() => CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         public async Task<IActionResult> OnGetAsync()
         {
-            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
             return Page();
         }
         public async Task<IActionResult> OnPostAsync()
@@ -41,8 +39,7 @@ namespace Musica
             }
             string encOldPassword = PasswordManager.EncodePasswordToBase64(OldPassword);
 
-            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
-            if (User.Password != encOldPassword)
+            if (GetUser().Password != encOldPassword)
             {
                 ErrorText = "Old password wrong";
                 return Page();
@@ -54,7 +51,7 @@ namespace Musica
                 ErrorText = "Passwords doesn't match";
                 return Page();
             }
-            _context.Users.SingleOrDefault(x => x.Id == User.Id).Password = encNewPassword;
+            _context.Users.SingleOrDefault(x => x.Id == GetUser().Id).Password = encNewPassword;
             _context.SaveChanges();
             ErrorText = string.Empty;
             return RedirectToPage("/users/Index");

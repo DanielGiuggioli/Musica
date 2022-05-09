@@ -85,8 +85,10 @@
 
     }
 </script>
-
-@if (Model.GetUser() == null)
+<div class="text-center">
+    <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
+</div>
+@if (Model.GetUser() == null || !Model.GetUser().IsVerified)
 {
     <div class="text-center mt-5">
         <p>You are not logged in! <a asp-page="/Users/Register" class="text-black-50">Register</a> or <a asp-page="/Users/Login" class="text-black-50">Log in</a></p>
@@ -94,9 +96,6 @@
 }
 else
 {
-    <div class="text-center">
-        <b style="color:#ffffff;font-size:2.5em;">@ViewData["Title"]</b>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col m-3 p-2 rounded border shadow text-center" id="showArtists">
@@ -144,7 +143,7 @@ else
                                 <img src="@s.header_image_url" class="rounded float-left" alt="@s.full_title img" style="max-height:100px;max-width:100px">
                             </div>
                             <div class="col mt-2">
-                                <b><i>@s.title</i></b>
+                                <a href="/SongDetail?id=@s.id" style="color:black"><b><i>@s.title</i></b></a>
                                 <br />
                                 <i>@s.artist_names</i>
                             </div>

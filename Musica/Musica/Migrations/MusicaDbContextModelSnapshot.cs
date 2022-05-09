@@ -64,6 +64,9 @@ namespace Musica.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Lyrics")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("artist_names")
                         .HasColumnType("TEXT");
 

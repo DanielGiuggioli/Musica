@@ -20,19 +20,18 @@ namespace Musica
         public string Email { get; set; }
         [BindProperty]
         public string ErrorText { get; set; }
-        public User User { get; set; }
+        public User GetUser() => CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         public async Task<IActionResult> OnGetAsync()
         {
-            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
-            var u = User.Username;
+            var u = GetUser().Username;
             Username = u;
-            var e = User.Email;
+            var e = GetUser().Email;
             Email = e;
             return Page();
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
+            User User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
             if (User.Username != Username)
             {
                 if (_context.Users.Select(x => x.Username).Contains(Username))

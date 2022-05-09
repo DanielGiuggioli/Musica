@@ -14,18 +14,16 @@ namespace Musica
         {
             _context = context;
         }
-
-        public new User User { get; set; }
+        public User GetUser() => CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         public int FavCount { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
-            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
-            if (User != null)
+            if (GetUser() != null)
             {
-                int favACount = _context.UsersArtists.Where(x => x.IdUser == User.Id && x.IsFavourite)
+                int favACount = _context.UsersArtists.Where(x => x.IdUser == GetUser().Id && x.IsFavourite)
                                              .ToList()
                                              .Count;
-                int favSCount = _context.UsersSongs.Where(x => x.IdUser == User.Id && x.IsFavourite)
+                int favSCount = _context.UsersSongs.Where(x => x.IdUser == GetUser().Id && x.IsFavourite)
                                              .ToList()
                                              .Count;
                 FavCount = favACount + favSCount;

@@ -49,7 +49,6 @@ C:\Users\giugg\source\repos\Musica\Musica\Musica\bin\Debug\netcoreapp3.1\Musica.
 C:\Users\giugg\source\repos\Musica\Musica\Musica\bin\Debug\netcoreapp3.1\Musica.Views.dll
 C:\Users\giugg\source\repos\Musica\Musica\Musica\bin\Debug\netcoreapp3.1\Musica.Views.pdb
 C:\Users\giugg\source\repos\Musica\Musica\Musica\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
-C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csproj.AssemblyReference.cache
 C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.AssemblyInfoInputs.cache
 C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.AssemblyInfo.cs
@@ -181,3 +180,6 @@ C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcore
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csprojAssemblyReference.cache
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\ArtistDetail.cshtml.g.cs
 C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\ArtistDetail.cshtml.g.cs
+C:\Users\giugg\source\repos\Musica\Musica\Musica\bin\Debug\netcoreapp3.1\WebDriver.dll
+C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\SongDetail.cshtml.g.cs
+C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csproj.AssemblyReference.cache

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace Musica.Pages
 {
@@ -15,14 +18,20 @@ namespace Musica.Pages
             _context = context;
         }
         public Song Song { get; set; }
-        public string Lyrics { get; set; }
         public User GetUser() => CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         public void OnGet(int? id)
         {
             if (id != null)
             {
                 Song = _context.Songs.SingleOrDefault(x => x.id == id);
-                Lyrics = new LyricsScreper().GetLyricsByUrl(Song.url);
+                if(Song.Lyrics == null)
+                {
+                    string Lyrics = new LyricsScreper().GetLyrics(Song.title, Song.artist_names);
+                    Song.Lyrics = Lyrics;
+                    _context.Songs.Attach(Song);
+                    _context.SaveChangesAsync();
+                }
+                    
                 
             }
         }

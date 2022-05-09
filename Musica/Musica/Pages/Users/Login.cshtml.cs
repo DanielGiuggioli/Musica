@@ -21,12 +21,11 @@ namespace Musica
         [BindProperty]
         public string ErrorText { get; set; }
         public string Value { get; set; }
-        public User User { get; set; }
+        public User GetUser() => CookiesManager.GetUserByCookies(HttpContext.Request, _context);
         public async Task<IActionResult> OnGetAsync(string? value)
         {
             if (value != null)
                 Value = value;
-            User = CookiesManager.GetUserByCookies(HttpContext.Request, _context);
             return Page();
         }
         public async Task<IActionResult> OnPostAsync()

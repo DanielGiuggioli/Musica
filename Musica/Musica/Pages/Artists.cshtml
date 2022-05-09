@@ -57,7 +57,7 @@
                         <div class="col pl-3">
                             <b style="color:#000000;font-size:2.4em;">@Model.Artist.Artist.name</b>
                         </div>
-                        @if (Model.GetUser() != null)
+                        @if (Model.GetUser() == null || !Model.GetUser().IsVerified)
                         {
                             <div class="col">
                                 <span class="float-right">
@@ -98,7 +98,7 @@
                                 <img src="@song.header_image_url" class="rounded img-fluid" alt="@song.title img" style="max-height:70px;max-width:70px">
                             </div>
                             <div class="col">
-                                <b><i>@song.title</i></b>
+                                <a href="/SongDetail?id=@song.id" style="color:black"><b><i>@song.title</i></b></a>
                                 <br />
                                 <i>@song.artist_names</i>
                             </div>
