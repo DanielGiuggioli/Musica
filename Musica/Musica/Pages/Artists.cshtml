@@ -57,7 +57,7 @@
                         <div class="col pl-3">
                             <b style="color:#000000;font-size:2.4em;">@Model.Artist.Artist.name</b>
                         </div>
-                        @if (Model.GetUser() == null || !Model.GetUser().IsVerified)
+                        @if (Model.GetUser() != null && Model.GetUser().IsVerified)
                         {
                             <div class="col">
                                 <span class="float-right">

@@ -29,8 +29,12 @@ namespace Musica
             if (SearchedArtist != null)
             {
                 Artist = apiCaller.GetArtistData(SearchedArtist);
-                if (_context.Artists.Where(x => x.id == Artist.Artist.id).SingleOrDefault() == default)
-                    _context.Artists.Add(Artist.Artist);
+                if(Artist != null)
+                {
+                    if (_context.Artists.Where(x => x.id == Artist.Artist.id).SingleOrDefault() == default)
+                        _context.Artists.Add(Artist.Artist);
+                }
+                
                 if (GetUser() != null)
                 {
                     if (_context.UsersArtists.Where(x => x.IdArtist == Artist.Artist.id && x.IdUser == GetUser().Id).SingleOrDefault() == default)
