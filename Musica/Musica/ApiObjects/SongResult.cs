@@ -12,9 +12,22 @@ namespace Musica
 
     public class SongResponse
     {
-        public Song song { get; set; }
+        public SongDto song { get; set; }
     }
 
+    public class SongDto
+    {
+        public int id { get; set; }
+        public string title { get; set; }
+        public string artist_names { get; set; }
+        public string full_title { get; set; }
+        public string recording_location { get; set; }
+        public string release_date_for_display { get; set; }
+        public string header_image_url { get; set; }
+        public string url { get; set; }
+        public string Lyrics { get; set; }
+        public PrimaryArtist primary_artist { get; set; }
+    }
     public class Song
     {
         public int id { get; set; }
@@ -26,5 +39,6 @@ namespace Musica
         public string header_image_url { get; set; }
         public string url { get; set; }
         public string Lyrics { get; set; }
+        public string primary_artist { get; set; }
     }
 }

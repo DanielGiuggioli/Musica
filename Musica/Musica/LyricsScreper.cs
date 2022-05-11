@@ -13,11 +13,11 @@ namespace Musica
     {
         private string uid
         {
-            get => "1001";
+            get => "10381";
         }
         private string tokenid
         {
-            get => "tk324324";
+            get => "CYYZ5JCuHeXEyQTI";
         }
         private string titleEnc { get; set; }
         private string artistEnc { get; set; }
@@ -29,20 +29,33 @@ namespace Musica
 
         public string GetLyrics(string title, string artist)
         {
-            titleEnc = HttpUtility.UrlEncode(title);
-            artistEnc = HttpUtility.UrlEncode(artist);
-            using (IWebDriver driver = new ChromeDriver())
+            if (title[title.Length - 1] == ' ')
+                title.Remove(title.Length - 1);
+            if (artist[artist.Length - 1] == ' ')
+                artist.Remove(artist.Length - 1);
+
+            titleEnc = title.Replace(" ", "%20");
+            artistEnc = artist.Replace(" ", "%20");
+
+            //titleEnc = HttpUtility.UrlEncode(title);
+            //artistEnc = HttpUtility.UrlEncode(artist);
+            ChromeDriverService service = ChromeDriverService.CreateDefaultService();
+            service.HideCommandPromptWindow = true;
+            var options = new ChromeOptions();
+            options.AddArguments("headless");
+            using (IWebDriver driver = new ChromeDriver(service, options))
             {
                 try
                 {
                     var apiCaller = new ApiCaller();
                     string lyricsResultString = apiCaller.GetBodyAsync(url).Result;
-                    LyricsResult lyricsResult = JsonConvert.DeserializeObject<LyricsResult>(lyricsResultString);
+                    string lrs = lyricsResultString.Replace('-', '_');
+                    LyricsResult lyricsResult = JsonConvert.DeserializeObject<LyricsResult>(lrs);
                     var res = lyricsResult.result[0];
-                    driver.Url = res.songlink;
+                    driver.Url = res.song_link;
 
                     IWebElement lyricElement = driver.FindElement(By.XPath(fullXPath));
-                    string RawHtml = lyricElement.Text;
+                    string RawHtml = lyricElement.GetAttribute("innerHTML");
                     return RawHtml;
                 }
                 catch (Exception ex)
@@ -59,6 +72,6 @@ namespace Musica
     }
     public class Res
     {
-        public string songlink { get; set; }
+        public string song_link { get; set; }
     }
 }

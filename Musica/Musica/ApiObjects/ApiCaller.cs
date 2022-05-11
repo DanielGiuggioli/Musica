@@ -38,8 +38,9 @@ namespace Musica
                 }
                 if(isContained)
                 {
-                    Song song = GetSongDataAsync(x.result.id.ToString()).Result;
-                    songs.Add(song);
+                    SongDto song = GetSongDataAsync(x.result.id.ToString()).Result;
+                    Song so = new Song() { id = song.id, artist_names = song.artist_names, full_title = song.full_title, header_image_url = song.header_image_url, primary_artist = song.primary_artist.name, recording_location = song.recording_location, release_date_for_display = song.release_date_for_display, title = song.title, url = song.url };
+                    songs.Add(so);
                 }
             }
             return songs;
@@ -86,8 +87,9 @@ namespace Musica
             {
                 if (x.result.primary_artist.id == artistSearch.Artist.id)
                 {
-                    Song song = GetSongDataAsync(x.result.id.ToString()).Result;
-                    artistSearch.Songs.Add(song);
+                    SongDto song = GetSongDataAsync(x.result.id.ToString()).Result;
+                    Song s = new Song() { id = song.id, artist_names = song.artist_names, full_title = song.full_title, header_image_url = song.header_image_url, primary_artist = song.primary_artist.name, recording_location = song.recording_location, release_date_for_display = song.release_date_for_display, title = song.title, url = song.url };
+                    artistSearch.Songs.Add(s);
                 }
                 if (artistSearch.Songs.Count == 5)
                     break;
@@ -133,7 +135,7 @@ namespace Musica
             SearchResult res = JsonConvert.DeserializeObject<SearchResult>(body);
             return res.response;
         }
-        public async Task<Song> GetSongDataAsync(string code)
+        public async Task<SongDto> GetSongDataAsync(string code)
         {
             string body = GetBodyAsync(songUrl + code).Result;
             SongResult res = JsonConvert.DeserializeObject<SongResult>(body);

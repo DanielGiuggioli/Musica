@@ -26,13 +26,15 @@ namespace Musica.Pages
                 Song = _context.Songs.SingleOrDefault(x => x.id == id);
                 if(Song.Lyrics == null)
                 {
-                    string Lyrics = new LyricsScreper().GetLyrics(Song.title, Song.artist_names);
-                    Song.Lyrics = Lyrics;
-                    _context.Songs.Attach(Song);
-                    _context.SaveChangesAsync();
-                }
+                    string Lyrics = new LyricsScreper().GetLyrics(Song.title, Song.primary_artist);
+                    if (!string.IsNullOrWhiteSpace(Lyrics))
+                    {
+                        Song.Lyrics = Lyrics;
+                        _context.Songs.Attach(Song);
+                        _context.SaveChangesAsync();
+                    }
                     
-                
+                }
             }
         }
     }
