@@ -11,7 +11,7 @@
 
             if (el.classList.contains("bi-star-fill")) {
 
-                fetch('/publish/Favourites?handler=DeleteFavouriteSong&userId=' + uId + '&songId=' + pId)
+                fetch('/Favourites?handler=DeleteFavouriteSong&userId=' + uId + '&songId=' + pId)
                     .then(r => {
 
                         el.classList.add("bi-star");
@@ -21,7 +21,7 @@
 
             } else {
 
-                fetch('/publish/Favourites?handler=SetFavouriteSong&userId=' + uId + '&songId=' + pId)
+                fetch('/Favourites?handler=SetFavouriteSong&userId=' + uId + '&songId=' + pId)
                     .then(r => {
 
                         el.classList.add("bi-star-fill");
@@ -60,7 +60,7 @@
                                 <img src="@s.header_image_url" class="rounded float-left" alt="@s.full_title img" style="max-height:100px;max-width:100px">
                             </div>
                             <div class="col mt-2">
-                                <a href="/publish/SongDetail?id=@s.id" style="color:black"><b><i>@s.title</i></b></a>
+                                <a href="/SongDetail?id=@s.id" style="color:black"><b><i>@s.title</i></b></a>
                                 <br />
                                 <i>@s.artist_names</i>
                             </div>
