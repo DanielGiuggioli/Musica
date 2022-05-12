@@ -37,8 +37,6 @@ namespace Musica
             titleEnc = title.Replace(" ", "%20");
             artistEnc = artist.Replace(" ", "%20");
 
-            //titleEnc = HttpUtility.UrlEncode(title);
-            //artistEnc = HttpUtility.UrlEncode(artist);
             ChromeDriverService service = ChromeDriverService.CreateDefaultService();
             service.HideCommandPromptWindow = true;
             var options = new ChromeOptions();
@@ -51,12 +49,17 @@ namespace Musica
                     string lyricsResultString = apiCaller.GetBodyAsync(url).Result;
                     string lrs = lyricsResultString.Replace('-', '_');
                     LyricsResult lyricsResult = JsonConvert.DeserializeObject<LyricsResult>(lrs);
-                    var res = lyricsResult.result[0];
-                    driver.Url = res.song_link;
-
-                    IWebElement lyricElement = driver.FindElement(By.XPath(fullXPath));
-                    string RawHtml = lyricElement.GetAttribute("innerHTML");
-                    return RawHtml;
+                    if (lyricsResult == null)
+                    {
+                        var res = lyricsResult.result[0];
+                        driver.Url = res.song_link;
+                        IWebElement lyricElement = driver.FindElement(By.XPath(fullXPath));
+                        string RawHtml = lyricElement.GetAttribute("innerHTML");
+                        return RawHtml;
+                    }
+                    else
+                        return null;
+                   
                 }
                 catch (Exception ex)
                 {
