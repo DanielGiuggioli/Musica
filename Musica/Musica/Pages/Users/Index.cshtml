@@ -10,7 +10,7 @@
     @if (Model.GetUser() == null || !Model.GetUser().IsVerified)
     {
         <div class="text-center mt-5">
-            <p>You are not logged in! <a asp-page="/publish/Users/Register" class="text-black-50">Register</a> or <a asp-page="/publish/Users/Login" class="text-black-50">Log in</a></p>
+            <p>You are not logged in! <a asp-page="/Users/Register" class="text-black-50">Register</a> or <a asp-page="/Users/Login" class="text-black-50">Log in</a></p>
         </div>
     }
     else
