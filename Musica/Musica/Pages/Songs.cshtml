@@ -11,7 +11,7 @@
 
             if (el.classList.contains("bi-star-fill")) {
 
-                fetch('/Favourites?handler=DeleteFavouriteSong&userId=' + uId + '&songId=' + pId)
+                fetch('/publish/Favourites?handler=DeleteFavouriteSong&userId=' + uId + '&songId=' + pId)
                     .then(r => {
 
                         el.classList.add("bi-star");
@@ -21,7 +21,7 @@
 
             } else {
 
-                fetch('/Favourites?handler=SetFavouriteSong&userId=' + uId + '&songId=' + pId)
+                fetch('/publish/Favourites?handler=SetFavouriteSong&userId=' + uId + '&songId=' + pId)
                     .then(r => {
 
                         el.classList.add("bi-star-fill");
