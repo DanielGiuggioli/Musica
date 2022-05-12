@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    @if (Model.Song.recording_location != null)
+    @if (!string.IsNullOrEmpty(Model.Song.recording_location))
     {
         <div class="row m-3">
             <div class="col text-center">
@@ -21,7 +21,7 @@
             </div>
         </div>
     }
-    @if (Model.Song.release_date_for_display != null)
+    @if (!string.IsNullOrEmpty(Model.Song.release_date_for_display))
     {
         <div class="row m-3">
             <div class="col text-center">

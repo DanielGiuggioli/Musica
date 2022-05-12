@@ -48,18 +48,27 @@ namespace Musica
                     var apiCaller = new ApiCaller();
                     string lyricsResultString = apiCaller.GetBodyAsync(url).Result;
                     string lrs = lyricsResultString.Replace('-', '_');
-                    LyricsResult lyricsResult = JsonConvert.DeserializeObject<LyricsResult>(lrs);
-                    if (lyricsResult == null)
+                    dynamic lyricsResult;
+                    if (lrs.Contains("["))
                     {
-                        var res = lyricsResult.result[0];
-                        driver.Url = res.song_link;
+                        lyricsResult = JsonConvert.DeserializeObject<LyricsResultArr>(lrs);
+                    }
+                    else
+                    {
+                        lyricsResult = JsonConvert.DeserializeObject<LyricsResultObj>(lrs);
+                    }
+                    
+                    if (lyricsResult != null)
+                    {
+                        var link = lyricsResult.GetSongLink();
+                        driver.Url = link;
                         IWebElement lyricElement = driver.FindElement(By.XPath(fullXPath));
-                        string RawHtml = lyricElement.GetAttribute("innerHTML");
+                        string RawHtml = lyricElement.Text;
                         return RawHtml;
                     }
                     else
                         return null;
-                   
+
                 }
                 catch (Exception ex)
                 {
@@ -69,12 +78,24 @@ namespace Musica
 
         }
     }
-    public class LyricsResult
+    public class LyricsResultArr
     {
-        public Res[] result { get; set; }
+        public dynamic result { get; set; }
+        public string GetSongLink()
+        {
+            return result[0].song_link;
+        }
     }
     public class Res
     {
         public string song_link { get; set; }
+    }
+    public class LyricsResultObj
+    {
+        public dynamic result { get; set; }
+        public string GetSongLink()
+        {
+            return result.song_link;
+        }
     }
 }

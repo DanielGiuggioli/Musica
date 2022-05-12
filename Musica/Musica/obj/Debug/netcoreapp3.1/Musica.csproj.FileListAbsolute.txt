@@ -183,6 +183,5 @@ C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.
 C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.genruntimeconfig.cache
 C:\Users\giugg\source\repos\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csproj.AssemblyReference.cache
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\bin\Debug\netcoreapp3.1\WebDriver.dll
-C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csproj.AssemblyReference.cache
-C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Razor\Pages\SongDetail.cshtml.g.cs
+C:\Users\giuggioli.17210\Documents\GitHub\Musica\Musica\Musica\obj\Debug\netcoreapp3.1\Musica.csprojAssemblyReference.cache
